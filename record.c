@@ -21,10 +21,7 @@ void set_sunspots(FILE *f, const char *name, unsigned short sunspots)
     record rec;
     memcpy(&rec, entry, sizeof(record)); // copy the data to the record
 
-    if (rec.name_len >= NAME_LEN_MAX) {
-      rec.name_len = NAME_LEN_MAX - 1; // ensure null-termination
-    }
-    char _name[NAME_LEN_MAX];
+    char _name[NAME_LEN_MAX + 1];
     memcpy(_name, rec.name, rec.name_len);
     _name[rec.name_len] = '\0';
 
@@ -37,11 +34,6 @@ void set_sunspots(FILE *f, const char *name, unsigned short sunspots)
   }
   // not found
   size_t name_length = strlen(name);
-
-  // for null terminating
-  if (name_length >= NAME_LEN_MAX) {
-    name_length = NAME_LEN_MAX - 1;
-  }
 
   // Copy the name to the record
   memcpy(rec.name, name, name_length);
@@ -76,11 +68,7 @@ int get_sunspots(FILE *f, const char *name, unsigned short *psunspots)
     record rec;
     memcpy(&rec, entry, sizeof(record)); // copy the data to the record
 
-    if (rec.name_len >= NAME_LEN_MAX) {
-      rec.name_len = NAME_LEN_MAX - 1; // ensure null-termination
-    }
-
-    char _name[NAME_LEN_MAX];
+    char _name[NAME_LEN_MAX + 1];
     memcpy(_name, rec.name, rec.name_len);
     _name[rec.name_len] = '\0';
     if (strcmp(_name, name) == 0) {
@@ -99,15 +87,4 @@ int get_sunspots(FILE *f, const char *name, unsigned short *psunspots)
 00000040  0b 41 6c 61 6e 20 54 75  72 69 6e 67 2d 2d 2d 2d  |.Alan Turing----|
 00000050  2d 2d 2d 2d 2d 2d 2d 2d  2d 2d 2d 2d 2d 2d 60 ea  |--------------`.|
 00000060
-
-- Leftmost column tells the current position
-- 2d tells you you're done calculating sunspots
-
-ie 
-Dennis Ritchie
-07 + 86 = 0786 sunspots in hex
-return the integer representation
-
-1 function for getting to the name
-1 function treating one line "as an array"
 */

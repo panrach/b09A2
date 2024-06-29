@@ -16,16 +16,11 @@ int main(int argc, char **argv)
 
   // Get Dennis Ritchie sunspots
   unsigned short y;
-  // if (get_sunspots(f, "Dennis Ritchie", &y)) {
-  //   printf("Ritchie has %hu sunspots\n", y);
-  // } else {
-  //   printf("Ritchie not found\n");
-  // }
 
   // Add a new record.
   set_sunspots(f, "William Henry Gates MCXXXVIII", 31337);
 
-  // // Change Archimedes's sunspots
+  // Change Archimedes's sunspots
   set_sunspots(f, "Archimedes", 3000);
 
   fclose(f);
