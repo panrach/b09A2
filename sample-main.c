@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "record.h"
+#include "record.c"
 
 int main(int argc, char **argv)
 {
@@ -21,11 +22,17 @@ int main(int argc, char **argv)
     printf("Ritchie not found\n");
   }
 
-  // Add a new record.
-  set_sunspots(f, "William Henry Gates MCXXXVIII", 31337);
+  if (get_sunspots(f, "Alan Turing", &y)) {
+    printf("Archimedes has %hu sunspots\n", y);
+  } else {
+    printf("Archimedes not found\n");
+  }
 
-  // Change Archimedes's sunspots
-  set_sunspots(f, "Archimedes", 3000);
+  // // Add a new record.
+  // set_sunspots(f, "William Henry Gates MCXXXVIII", 31337);
+
+  // // Change Archimedes's sunspots
+  // set_sunspots(f, "Archimedes", 3000);
 
   fclose(f);
   return 0;
