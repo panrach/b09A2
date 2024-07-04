@@ -4,12 +4,6 @@
 
 #define RECORD_SIZE 32
 
-/*
-Overwrite the sunspots field of name
-If multiple records have the same name: change 1st
-If not found: add a new record at the end
-Must start seeking at the beginning
-*/
 void set_sunspots(FILE *f, const char *name, unsigned short sunspots)
 {
   record rec;
@@ -38,9 +32,7 @@ void set_sunspots(FILE *f, const char *name, unsigned short sunspots)
 
   // Copy the name to the record
   memcpy(rec.name, name, name_length);
-  name = rec.name;
-  rec.name[name_length] = '\0'; // Null-terminate the string
-
+  
   // Set the name length and sunspots
   rec.name_len = name_length;
   rec.sunspots = sunspots;
@@ -49,14 +41,6 @@ void set_sunspots(FILE *f, const char *name, unsigned short sunspots)
   fwrite(&rec, RECORD_SIZE, 1, f);
   return;
 }
-
-/*
-Get the sunspots field from the record that has the given name.
-If found: store answer at psunspots address
-If not found: return 0
-If multiple records with same name: return 1st
-File position can be anywhere. Must start seeking at beginning
-*/
 
 int get_sunspots(FILE *f, const char *name, unsigned short *psunspots)
 {
