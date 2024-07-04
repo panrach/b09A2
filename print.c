@@ -24,11 +24,7 @@ int main(int argc, char **argv)
     record rec;
     memcpy(&rec, entry, sizeof(record)); // copy the data to the record
 
-    if (rec.name_len >= NAME_LEN_MAX) {
-      rec.name_len = NAME_LEN_MAX - 1; // ensure null-termination
-    }
-
-    char _name[NAME_LEN_MAX];
+    char _name[NAME_LEN_MAX + 1];
     memcpy(_name, rec.name, rec.name_len);
     _name[rec.name_len] = '\0';
 
