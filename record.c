@@ -18,16 +18,15 @@ void set_sunspots(FILE *f, const char *name, unsigned short sunspots)
 
   fseek(f, 0, SEEK_SET);
 
-
   while ((bytes_read = fread(entry, 1, RECORD_SIZE, f)) > 0) {
     record rec;
     memcpy(&rec, entry, sizeof(record)); // copy the data to the record
 
-    char _name[NAME_LEN_MAX + 1];
-    memcpy(_name, rec.name, rec.name_len);
-    _name[rec.name_len] = '\0';
+    char temp_name[NAME_LEN_MAX + 1];
+    memcpy(temp_name, rec.name, rec.name_len);
+    temp_name[rec.name_len] = '\0';
 
-    if (strcmp(_name, name) == 0) {
+    if (strcmp(temp_name, name) == 0) {
       rec.sunspots = sunspots;
       fseek(f, -RECORD_SIZE, SEEK_CUR);
       fwrite(&rec, RECORD_SIZE, 1, f);
@@ -70,10 +69,10 @@ int get_sunspots(FILE *f, const char *name, unsigned short *psunspots)
     record rec;
     memcpy(&rec, entry, sizeof(record)); // copy the data to the record
 
-    char _name[NAME_LEN_MAX + 1];
-    memcpy(_name, rec.name, rec.name_len);
-    _name[rec.name_len] = '\0';
-    if (strcmp(_name, name) == 0) {
+    char temp_name[NAME_LEN_MAX + 1];
+    memcpy(temp_name, rec.name, rec.name_len);
+    temp_name[rec.name_len] = '\0';
+    if (strcmp(temp_name, name) == 0) {
       *psunspots = rec.sunspots;
       return 1;
     }
